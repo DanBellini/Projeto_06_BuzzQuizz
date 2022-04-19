@@ -20,14 +20,21 @@
     <div class="conteiner">
         <div class="criar-titulo">
             <input class="seuTitulo" type="text" placeholder="Título do seu quizz">
-            <input class="suaImagem" type="text" placeholder="URL da imagem do seu quizz">
+            <div class="erroTitulo"></div>
+            <input class="suaImagem" type="text" placeholder="URL da imagem do seu quizz"><!-- preciso de ajuda para verificar se é uma url-->
+            <div class="erroImagem"></div>
             <input class="suasQuestoes" type="text" placeholder="Quantidade de perguntas do quizz">
+            <div class="erroQuestoes"></div>
             <input class="seusNiveis" type="text" placeholder="Quantidade de níveis do quizz">
+            <div class="erroNiveis"></div>
         </div>
-        <button class="primeiraEtapa">
+        <button class="primeiraEtapa" onclick="avancarEtapa1()">
             <span>Prosseguir pra criar perguntas</span>
         </button>
     </div>
-
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./enviarquizz.js"></script>
 </body>
 </html>
