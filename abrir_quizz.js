@@ -32,7 +32,7 @@ function renderizarQuizzes() {
 
 function abrirQuizz() {
     const paginaInicial = document.querySelector(".pagina-inicial")
-    paginaInicial.style.display = "none"
+    //paginaInicial.style.display = "none"
 }
 
 function criarQuizz() {
