@@ -3,6 +3,9 @@ let quizzes = [];
 let statusDasRespostas = [];
 let containerSelecionado = 0;
 let quizzSelecionado = {}
+let acertos = 0
+let perguntasRespondidas = 0
+let quantidadePerguntas = 0
 
 
 function solicitarQuizzes() {
@@ -56,12 +59,12 @@ function renderizarQuizz() {
 	const tituloQuizz = document.querySelector(".titulo-do-quizz");
 	tituloQuizz.innerHTML = quizz.title;
 
-	const quantidaPerguntas = quizz.questions.length;
+	quantidadePerguntas = quizz.questions.length;
 
 	const perguntas = document.querySelector(".perguntas");
 	perguntas.innerHTML = "";
 
-	for (let i = 0; i < quantidaPerguntas; i++) {
+	for (let i = 0; i < quantidadePerguntas; i++) {
 		
 		let respostasQuizz = quizz.questions[i].answers;
 		let quanidadeRespostas = respostasQuizz.length;
@@ -126,10 +129,53 @@ function selecionarResposta(selecionada) {
 		if (selecionada !== respostas[i]) {
 			respostas[i].classList.add("opacidade");
 		}
+
+		if (selecionada === respostas[i] && statusDasRespostas[containerSelecionado][i] === true) {
+			acertos += 1 
+		}
+
 		if (statusDasRespostas[containerSelecionado][i] === true) {
 			respostas[i].querySelector("h3").style.color = "#009C22";
 		} else {
 			respostas[i].querySelector("h3").style.color = "#FF4B4B";
+		}
+	}
+
+	perguntasRespondidas += 1
+
+	if (perguntasRespondidas === quantidadePerguntas) {
+		setTimeout(mostrarResultado, 2000) 
+	}
+}
+
+function mostrarResultado() {
+
+	const paginaResultado = document.querySelector(".resultado")
+	paginaResultado.style.display = "flex"
+
+	const quizz = quizzSelecionado
+
+	const quantidadeLevels = quizz.levels.length
+
+	const porcentagemAcerto = Math.round(acertos/quantidadePerguntas*100)
+	
+	for (let i = 0; i < quantidadeLevels; i++) {
+
+		if (porcentagemAcerto >= Math.round(quizz.levels[i].minValue)) {
+
+			const cabecalhoResultado = document.querySelector(".cabecalho-resultado")
+			cabecalhoResultado.innerHTML = `${porcentagemAcerto}% de acerto: ${quizz.levels[i].title}`
+
+			const imagemResultado = document.querySelector(".img-resultado")
+			imagemResultado.src = quizz.levels[i].image
+
+			const descricaoResultado = document.querySelector(".descricao-resultado")
+			descricaoResultado.innerHTML = quizz.levels[i].text
+
+			const paginaResultado = document.querySelector(".resultado")
+			paginaResultado.scrollIntoView(false)
+
+			break
 		}
 	}
 }
