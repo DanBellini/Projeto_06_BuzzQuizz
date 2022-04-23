@@ -27,38 +27,49 @@
             </div>
             <div class="meus quizzes">
                 <div class="quizz" onclick="abrirQuizz()">
-                    <img src="https://t.ctcdn.com.br/5XPASDBUosgmBv5Ptpxcd6eTJso=/512x288/smart/filters:format(webp)/i257652.jpeg" alt="">
-                    <div class="gradiente"></div>
-                    <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
+                    <img src="" alt="">
+                    <div class="gradiente">
+                        <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
+                    </div>
                 </div>
             </div>
         </section>
         <section class="quizzes-container">
             <h2>Todos os Quizzes</h2>
-            <div class="todos quizzes">
-                
-            </div>
+            <div class="todos quizzes"></div>
         </section>
     </div>
 
-    <div class="instrucao">
-        <span>Comece pelo começo</span>
+    <div class="pagina-do-quizz">
+        <header class="cabecalho-do-quizz">
+            <img class="imagem-do-quizz" src="" alt="">
+            <div class="camada-preta">
+                <h1 class="titulo-do-quizz"></h1>
+            </div>
+        </header>
+        <main class="perguntas"></main>
     </div>
-    <div class="conteiner">
-        <div class="criar-titulo">
-            <input class="seuTitulo" type="text" placeholder="Título do seu quizz">
-            <div class="erroTitulo"></div>
-            <input class="suaImagem" type="text" placeholder="URL da imagem do seu quizz"><!-- preciso de ajuda para verificar se é uma url-->
-            <!-- creio que você pode criar uma função para verificar os primeiros caracteres da string inserida no input. se os primeiros caracteres forem iguais à https://, então é uma URL-->
-            <div class="erroImagem"></div>
-            <input class="suasQuestoes" type="number" min="3" placeholder="Quantidade de perguntas do quizz">
-            <div class="erroQuestoes"></div>
-            <input class="seusNiveis" type="number" min="2" placeholder="Quantidade de níveis do quizz">
-            <div class="erroNiveis"></div>
+
+    <div class="teste">
+        <div class="instrucao">
+            <span>Comece pelo começo</span>
         </div>
-        <button class="primeiraEtapa" onclick="avancarEtapa1()">
-            <span>Prosseguir pra criar perguntas</span>
-        </button>
+        <div class="conteiner">
+            <div class="criar-titulo">
+                <input class="seuTitulo" type="text" placeholder="Título do seu quizz">
+                <div class="erroTitulo"></div>
+                <input class="suaImagem" type="text" placeholder="URL da imagem do seu quizz"><!-- preciso de ajuda para verificar se é uma url-->
+                <!-- creio que você pode criar uma função para verificar os primeiros caracteres da string inserida no input. se os primeiros caracteres forem iguais à https://, então é uma URL-->
+                <div class="erroImagem"></div>
+                <input class="suasQuestoes" type="number" min="3" placeholder="Quantidade de perguntas do quizz">
+                <div class="erroQuestoes"></div>
+                <input class="seusNiveis" type="number" min="2" placeholder="Quantidade de níveis do quizz">
+                <div class="erroNiveis"></div>
+            </div>
+            <button class="primeiraEtapa" onclick="avancarEtapa1()">
+                <span>Prosseguir pra criar perguntas</span>
+            </button>
+        </div>
     </div>
 
     

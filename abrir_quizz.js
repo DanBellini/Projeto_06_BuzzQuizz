@@ -1,42 +1,136 @@
-const API = "https://mock-api.driven.com.br/api/v6/buzzquizz"
-let listaQuizzes = []
+const API = "https://mock-api.driven.com.br/api/v6/buzzquizz";
+let quizzes = [];
+let statusDasRespostas = [];
+let containerSelecionado = 0;
 
 
 function solicitarQuizzes() {
-    const promisse = axios.get(`${API}/quizzes`)
+    const promisse = axios.get(`${API}/quizzes`);
     promisse.then(function (resposta){
-        quizzes = resposta.data
-        renderizarQuizzes()
+        quizzes = resposta.data;
+        renderizarListagemQuizz();
+		abrirQuizz();
     })
 }
-solicitarQuizzes()
+solicitarQuizzes();
 
-function renderizarQuizzes() {
+function renderizarListagemQuizz() {
 
-    const todosQuizzes = document.querySelector(".todos.quizzes")
-    todosQuizzes.innerHTML = ""
+    const todosQuizzes = document.querySelector(".todos.quizzes");
+    todosQuizzes.innerHTML = "";
 
     for (let i = 0; i < quizzes.length; i++) {
-        let titulo = quizzes[i].title
-        let imagem = quizzes[i].image
+        let titulo = quizzes[i].title;
+        let imagem = quizzes[i].image;
 
         todosQuizzes.innerHTML += `
         <div class="quizz" onclick="abrirQuizz()">
             <img src=${imagem} alt="">
             <div class="gradiente"></div>
             <h3>${titulo}</h3>
-        </div>`
+        </div>`;
                 
     }
 }
 
+
 function abrirQuizz() {
-    const paginaInicial = document.querySelector(".pagina-inicial")
+    //const paginaInicial = document.querySelector(".pagina-inicial")
     //paginaInicial.style.display = "none"
+
+	renderizarQuizz()
+}
+
+function renderizarQuizz() {
+	const quizz = quizzes[0];
+
+	const imagemDoQuizz = document.querySelector(".imagem-do-quizz");
+	imagemDoQuizz.src = quizz.image;
+	
+	const tituloQuizz = document.querySelector(".titulo-do-quizz");
+	tituloQuizz.innerHTML = quizz.title;
+
+	const quantidaPerguntas = quizz.questions.length;
+
+	const perguntas = document.querySelector(".perguntas");
+	perguntas.innerHTML = "";
+
+	for (let i = 0; i < quantidaPerguntas; i++) {
+		
+		let respostasQuizz = quizz.questions[i].answers;
+		let quanidadeRespostas = respostasQuizz.length;
+		respostasQuizz = respostasQuizz.sort(comparador);
+
+		let respostas = "";
+		let statusDaResposta = [];
+
+		for (let j = 0; j < quanidadeRespostas; j++) {
+
+			let texto = respostasQuizz[j].text;
+			let imagem = respostasQuizz[j].image;
+			statusDaResposta[j] = respostasQuizz[j].isCorrectAnswer;
+
+			respostas += `
+			<div class="resposta" onclick="selecionarResposta(this)">
+				<img src=${imagem} alt="">
+				<h3>${texto}</h3>
+			</div>`;
+		}
+
+		let tituloPergunta = quizz.questions[i].title;
+		let corPergunta = quizz.questions[i].color;
+
+		perguntas.innerHTML += `
+		<div class="container-pergunta">
+			<div class="pergunta" style="background: ${corPergunta};">${tituloPergunta}</div>
+			${respostas}
+		</div>`;
+
+		statusDasRespostas[i] = statusDaResposta;
+	}
+}
+
+function selecionarResposta(selecionada) {
+
+	const container = selecionada.parentElement;
+	const respostas = container.querySelectorAll(".resposta");
+
+	const todosContainers = document.querySelectorAll(".container-pergunta");
+
+	for (let i = 0; i < todosContainers.length; i++) {
+		if (container === todosContainers[i]) {
+
+			if (i+1 < todosContainers.length) {
+				setTimeout(function () {
+					todosContainers[i+1].scrollIntoView();
+				}, 2000) 
+			}
+
+			containerSelecionado = i;
+		}
+	}
+
+	for (let i = 0; i < respostas.length; i++) {
+
+		respostas[i].removeAttribute("onclick");
+
+		if (selecionada !== respostas[i]) {
+			respostas[i].classList.add("opacidade");
+		}
+		if (statusDasRespostas[containerSelecionado][i] === true) {
+			respostas[i].querySelector("h3").style.color = "#009C22";
+		} else {
+			respostas[i].querySelector("h3").style.color = "#FF4B4B";
+		}
+	}
 }
 
 function criarQuizz() {
     
+}
+
+function comparador() { 
+	return Math.random() - 0.5;
 }
 
 /* [
