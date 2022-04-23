@@ -1,3 +1,4 @@
+
 .teste {
     display: none;
 }
@@ -107,6 +108,7 @@
 
 .quizz h3 {
     display: flex;
+
     width: 300px;
     position: absolute;
     bottom: 15px;
@@ -116,6 +118,7 @@
     font-weight: 400;
     font-size: 19px;
     line-height: 22px;
+    word-break: break-all;
     color: #ffffff;
 }
 
@@ -221,7 +224,9 @@ img {
     font-weight: 700;
     font-size: 20px;
     line-height: 23px;
+    word-break: break-all;
     color: #000000;
+    word-break: break-all;
 
     margin-top: 8px;
 }

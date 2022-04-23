@@ -2,6 +2,7 @@ const API = "https://mock-api.driven.com.br/api/v6/buzzquizz";
 let quizzes = [];
 let statusDasRespostas = [];
 let containerSelecionado = 0;
+let quizzSelecionado = {}
 
 
 function solicitarQuizzes() {
@@ -9,7 +10,6 @@ function solicitarQuizzes() {
     promisse.then(function (resposta){
         quizzes = resposta.data;
         renderizarListagemQuizz();
-		abrirQuizz();
     })
 }
 solicitarQuizzes();
@@ -20,32 +20,38 @@ function renderizarListagemQuizz() {
     todosQuizzes.innerHTML = "";
 
     for (let i = 0; i < quizzes.length; i++) {
+
+		let identificador = quizzes[i].id
         let titulo = quizzes[i].title;
         let imagem = quizzes[i].image;
 
         todosQuizzes.innerHTML += `
-        <div class="quizz" onclick="abrirQuizz()">
+        <div id="${identificador}" class="quizz" onclick="abrirQuizz(this)">
             <img src=${imagem} alt="">
             <div class="gradiente"></div>
             <h3>${titulo}</h3>
         </div>`;
-                
     }
 }
 
+function abrirQuizz(quizz) {
+    const paginaInicial = document.querySelector(".pagina-inicial")
+    paginaInicial.style.display = "none"
 
-function abrirQuizz() {
-    //const paginaInicial = document.querySelector(".pagina-inicial")
-    //paginaInicial.style.display = "none"
+	quizzSelecionado = quizzes.find(arr => arr.id === Number(quizz.id))
 
 	renderizarQuizz()
+
+	const paginaQuizz = document.querySelector(".pagina-do-quizz")
+	paginaQuizz.style.display = "unset"
 }
 
 function renderizarQuizz() {
-	const quizz = quizzes[0];
+	const quizz = quizzSelecionado;
 
 	const imagemDoQuizz = document.querySelector(".imagem-do-quizz");
 	imagemDoQuizz.src = quizz.image;
+	imagemDoQuizz.scrollIntoView()
 	
 	const tituloQuizz = document.querySelector(".titulo-do-quizz");
 	tituloQuizz.innerHTML = quizz.title;
@@ -59,7 +65,10 @@ function renderizarQuizz() {
 		
 		let respostasQuizz = quizz.questions[i].answers;
 		let quanidadeRespostas = respostasQuizz.length;
-		respostasQuizz = respostasQuizz.sort(comparador);
+
+		respostasQuizz = respostasQuizz.sort(function () { 
+			return Math.random() - 0.5;
+		});
 
 		let respostas = "";
 		let statusDaResposta = [];
@@ -131,10 +140,6 @@ function criarQuizz() {
 
 	const paginaCriarQuizz = document.querySelector(".paginaCrieQuizz")
 	paginaCriarQuizz.style.display = "unset"
-}
-
-function comparador() { 
-	return Math.random() - 0.5;
 }
 
 /* [
