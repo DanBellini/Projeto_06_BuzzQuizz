@@ -126,7 +126,11 @@ function selecionarResposta(selecionada) {
 }
 
 function criarQuizz() {
-    
+    const paginaInicial = document.querySelector(".pagina-inicial")
+    paginaInicial.style.display = "none"
+
+	const paginaCriarQuizz = document.querySelector(".paginaCrieQuizz")
+	paginaCriarQuizz.style.display = "unset"
 }
 
 function comparador() { 

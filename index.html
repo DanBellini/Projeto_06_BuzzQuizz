@@ -26,12 +26,7 @@
                 <ion-icon class="btn-add-quizz" name="add-circle" onclick="criarQuizz()"></ion-icon>
             </div>
             <div class="meus quizzes">
-                <div class="quizz" onclick="abrirQuizz()">
-                    <img src="" alt="">
-                    <div class="gradiente">
-                        <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                    </div>
-                </div>
+                <!-- INSERIR QUIZZES DO USUÁRIO AQUI -->
             </div>
         </section>
         <section class="quizzes-container">
@@ -49,7 +44,7 @@
         </header>
         <main class="perguntas"></main>
     </div>
-    
+
     <div class="paginaCrieQuizz">
         <div class="instrucao">
             <span>Comece pelo começo</span>
@@ -59,7 +54,6 @@
                 <input class="seuTitulo" type="text" placeholder="Título do seu quizz">
                 <div class="erroTitulo"></div>
                 <input class="suaImagem" type="url" placeholder="URL da imagem do seu quizz"><!-- preciso de ajuda para verificar se é uma url-->
-                <!-- creio que você pode criar uma função para verificar os primeiros caracteres da string inserida no input. se os primeiros caracteres forem iguais à https://, então é uma URL-->
                 <div class="erroImagem"></div>
                 <input class="suasQuestoes" type="number" min="3" placeholder="Quantidade de perguntas do quizz">
                 <div class="erroQuestoes"></div>

@@ -9,7 +9,7 @@
 /* PÁGINA INICIAL */
 
 .pagina-inicial {
-    display: none;
+    /* display: none; */
     width: 1050px;
 
     margin: 0 auto;
@@ -56,6 +56,8 @@
     font-size: 21px;
     line-height: 25px;
     color: #EC362D;
+
+    cursor: pointer;
 }
 
 .quizzes-container {
@@ -80,6 +82,12 @@
     color: #ff0000;
 
     margin-left: 15px;
+
+    cursor: pointer;
+}
+
+.pagina-inicial section:nth-child(2) {
+    display: none;
 }
 
 .quizzes {
@@ -129,6 +137,10 @@ img {
 }
 
 /* ´PÁGINA DO QUIZZ */
+
+.pagina-do-quizz {
+    display: none;
+}
 
 .cabecalho-do-quizz {
     width: 100vw;
