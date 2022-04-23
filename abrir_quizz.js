@@ -5,7 +5,7 @@ let containerSelecionado = 0;
 let quizzSelecionado = {}
 let acertos = 0
 let perguntasRespondidas = 0
-let quantidadePerguntas = 0
+let quantidaPerguntas = 0
 
 
 function solicitarQuizzes() {
@@ -59,12 +59,12 @@ function renderizarQuizz() {
 	const tituloQuizz = document.querySelector(".titulo-do-quizz");
 	tituloQuizz.innerHTML = quizz.title;
 
-	quantidadePerguntas = quizz.questions.length;
+	quantidaPerguntas = quizz.questions.length;
 
 	const perguntas = document.querySelector(".perguntas");
 	perguntas.innerHTML = "";
 
-	for (let i = 0; i < quantidadePerguntas; i++) {
+	for (let i = 0; i < quantidaPerguntas; i++) {
 		
 		let respostasQuizz = quizz.questions[i].answers;
 		let quanidadeRespostas = respostasQuizz.length;
@@ -100,6 +100,18 @@ function renderizarQuizz() {
 
 		statusDasRespostas[i] = statusDaResposta;
 	}
+}
+
+function reiniciarQuizz() {
+
+	const paginaResultado = document.querySelector(".resultado")
+	paginaResultado.style.display = "none"
+
+	acertos = 0
+	perguntasRespondidas = 0
+
+	renderizarQuizz()
+
 }
 
 function selecionarResposta(selecionada) {
@@ -143,7 +155,7 @@ function selecionarResposta(selecionada) {
 
 	perguntasRespondidas += 1
 
-	if (perguntasRespondidas === quantidadePerguntas) {
+	if (perguntasRespondidas === quantidaPerguntas) {
 		setTimeout(mostrarResultado, 2000) 
 	}
 }
@@ -157,7 +169,7 @@ function mostrarResultado() {
 
 	const quantidadeLevels = quizz.levels.length
 
-	const porcentagemAcerto = Math.round(acertos/quantidadePerguntas*100)
+	const porcentagemAcerto = Math.round(acertos/quantidaPerguntas*100)
 	
 	for (let i = 0; i < quantidadeLevels; i++) {
 
@@ -172,8 +184,7 @@ function mostrarResultado() {
 			const descricaoResultado = document.querySelector(".descricao-resultado")
 			descricaoResultado.innerHTML = quizz.levels[i].text
 
-			const paginaResultado = document.querySelector(".resultado")
-			paginaResultado.scrollIntoView(false)
+			cabecalhoResultado.scrollIntoView()
 
 			break
 		}
@@ -186,6 +197,10 @@ function criarQuizz() {
 
 	const paginaCriarQuizz = document.querySelector(".paginaCrieQuizz")
 	paginaCriarQuizz.style.display = "unset"
+}
+
+function voltarHome() {
+	window.location.reload()
 }
 
 /* [
