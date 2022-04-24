@@ -130,7 +130,7 @@ function validarCor(cor){
     if ((verificarCor === "#") && (cor.length === 7)){
         return true;
     }
-    else{
+    if((cor.length<7) || (cor.length>7)){
         return false;
     }
 }
@@ -139,6 +139,7 @@ let validacaoPergunta = [];
 
 function verificarEtapa2(){
 
+    quizz.questions = [];
     validacaoPergunta = [];
     let i = 1
     while(i<=qtdquestoes){
@@ -165,7 +166,6 @@ function verificarEtapa2(){
         erroRespostaIncorreta.innerHTML = "";
         erroImagemIncorreta.innerHTML = "";
 
-
         if(inputSuaPergunta.length < 20){
             erroPergunta.innerHTML = "Sua pergunta deve ter no mínimo 20 caracteres";
         }
@@ -191,26 +191,26 @@ function verificarEtapa2(){
         }
 
         else{
-            const respostas = [{
+
+            const respostas = []
+
+            respostaCorreta ={
                 text: inputRespostaCorreta,
                 image: inputRespostaImagemCorreta,
                 isCorrectAnswer: true
-            },
-            {
-                text: inputRespostaIncorreta[0].value,
-                image: inputRespostaImagemIncorreta[0].value,
-                isCorrectAnswer: false
-            },
-            {
-                text: inputRespostaIncorreta[1].value,
-                image: inputRespostaImagemIncorreta[1].value,
-                isCorrectAnswer: false
-            },
-            {
-                text: inputRespostaIncorreta[2].value,
-                image: inputRespostaImagemIncorreta[2].value,
-                isCorrectAnswer: false
-            }]
+            }
+            respostas.push(respostaCorreta)
+
+            for (j=0; j<inputRespostaIncorreta.length; j++){
+                if (inputRespostaIncorreta[j].value.length !== 0){
+                    respostaIncorreta = {
+                        text: inputRespostaIncorreta[j].value,
+                        image: inputRespostaImagemIncorreta[j].value,
+                        isCorrectAnswer: false
+                    }
+                    respostas.push(respostaIncorreta)
+                }
+            }
 
             quizz.questions.push({
                 title: inputSuaPergunta,
@@ -246,7 +246,7 @@ function renderizarEtapa3(){
             <input class="tituloNivel${i}" type="text" placeholder="Texto do Nível">
             <div class="erroTituloNivel${i}"></div>
 
-            <input class="porcentagemAcerto${i}" type="text" placeholder="% de acerto mínima">
+            <input class="porcentagemAcerto${i}" type="number" placeholder="% de acerto mínima">
             <div class="erroPorcentagemAcerto${i}"></div>
 
             <input class="imagemNivel${i}" type="text" placeholder="URL da imagem do nível">
@@ -272,7 +272,7 @@ function verificarEtapa3 (){
     let i = 1
     while(i<=qtdniveis){
         const inputTituloNivel = document.querySelector(`.tituloNivel${i}`).value;
-        const inputPorcentagem = document.querySelector(`.porcentagemAcerto${i}`).value;
+        const inputPorcentagem = Number(document.querySelector(`.porcentagemAcerto${i}`).value);
         const inputImagemNivel = document.querySelector(`.imagemNivel${i}`).value;
         const inputDescricaoNivel = document.querySelector(`.descricaoNivel${i}`).value;
 
@@ -301,12 +301,12 @@ function verificarEtapa3 (){
         else{
             validacaoNivel.push(inputPorcentagem);
 
-            const niveis = [{
+            const niveis = {
                 title: inputTituloNivel,
                 image: inputImagemNivel,
                 text: inputDescricaoNivel,
                 minValue: inputPorcentagem
-            }]
+            }
 
             quizz.levels.push(niveis);
         }
@@ -316,21 +316,33 @@ function verificarEtapa3 (){
 
 function avancarEtapa3 (){
     verificarEtapa3();
-    if(validacaoNivel.length === qtdniveis){
-        for (i=0; i < validacaoNivel.length; i++){
-            if(validacaoNivel[i] === 0){
-                finalizarQuizz ();
-            }
+
+    let validarporcentagen = 0
+    let i=0
+    while(i < validacaoNivel.length){
+        if (validacaoNivel[i] === 0){
+            validarporcentagen += 1
+            const requisicao = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizz)
+            requisicao.then(finalizarQuizz)
+            requisicao.catch(tratarErro)
+            i++
+        } else{
+            i++
         }
-    } else {
-        alert("Pelo menos uma das porcentagens de acerto mínimo deve possuir o 0");
     }
+    if (validarporcentagen !== 1){
+    alert("Um, e apenas um, dos campos de % de acerto mínimo deve ter valor o 0")
+    }
+}
+
+function tratarErro (erro){
+    alert(`Não foi possivel finalizar o seu Quizz :( \n Erro:${erro.response.status}`)
 }
 
 function finalizarQuizz (){
 
     const corpo = document.querySelector(".paginaCrieQuizz");
-    corpo.querySelector(".instrucao").innerHTML = `<span>Seu Quizz está pronto!/span>`;
+    corpo.querySelector(".instrucao").innerHTML = `<span>Seu Quizz está pronto!</span>`;
 
     const conteiner = document.querySelector(".conteiner");
     conteiner.innerHTML = "";
