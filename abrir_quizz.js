@@ -9,10 +9,12 @@ let quantidaPerguntas = 0
 
 
 function solicitarQuizzes() {
+	carregarPagina()
     const promisse = axios.get(`${API}/quizzes`);
     promisse.then(function (resposta){
         quizzes = resposta.data;
         renderizarListagemQuizz();
+		carregarPagina()
     })
 }
 solicitarQuizzes();
@@ -201,6 +203,17 @@ function criarQuizz() {
 
 function voltarHome() {
 	window.location.reload()
+}
+
+function carregarPagina() {
+
+	const telaCarregamento = document.querySelector(".loading")
+
+	if (telaCarregamento.style.display === "flex") {
+		telaCarregamento.style.display = "none"
+	} else {
+		telaCarregamento.style.display = "flex"
+	}
 }
 
 /* [
