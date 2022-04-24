@@ -68,7 +68,6 @@ function renderizarEtapa2 (){
 
 
     for (let i=1; i <= qtdquestoes; i++){
-
  
         conteiner.innerHTML += `
         <div class="criar-pergunta">
@@ -136,11 +135,11 @@ function validarCor(cor){
     }
 }
 
-let validacao = [];
+let validacaoPergunta = [];
 
 function verificarEtapa2(){
 
-    validacao = [];
+    validacaoPergunta = [];
     let i = 1
     while(i<=qtdquestoes){
 
@@ -218,7 +217,7 @@ function verificarEtapa2(){
                 color: inputSuaCor,
                 answers: respostas
             })
-            validacao.push(true)
+            validacaoPergunta.push(true)
         }
     i++
     }
@@ -226,9 +225,7 @@ function verificarEtapa2(){
 
 function avancarEtapa2 (){
     verificarEtapa2();
-    console.log(validacao.length);
-    console.log(qtdquestoes);
-    if(validacao.length === qtdquestoes){
+    if(validacaoPergunta.length === qtdquestoes){
         renderizarEtapa3();
     }
 }
@@ -239,6 +236,116 @@ function renderizarEtapa3(){
 
     const conteiner = document.querySelector(".conteiner");
     conteiner.innerHTML = "";
+
+    for (let i=1; i <= qtdniveis; i++){
+ 
+        conteiner.innerHTML += `
+        <div class="criar-nivel">
+            <p>Nível ${i} </p>
+
+            <input class="tituloNivel${i}" type="text" placeholder="Texto do Nível">
+            <div class="erroTituloNivel${i}"></div>
+
+            <input class="porcentagemAcerto${i}" type="text" placeholder="% de acerto mínima">
+            <div class="erroPorcentagemAcerto${i}"></div>
+
+            <input class="imagemNivel${i}" type="text" placeholder="URL da imagem do nível">
+            <div class="erroImagemNivel${i}"></div>
+
+            <input class="descricaoNivel${i} descricao" placeholder="Descrição do nível">
+            <div class="erroDescricao${i}"></div>
+        `
+    }
+
+    conteiner.innerHTML += `
+    <button class="primeiraEtapa" onclick="avancarEtapa3()">
+        <span>Finalizar Quizz</span>
+    </button>
+    `
 }
 
+let validacaoNivel = [];
 
+function verificarEtapa3 (){
+    quizz.levels = [];
+    validacaoNivel = [];
+    let i = 1
+    while(i<=qtdniveis){
+        const inputTituloNivel = document.querySelector(`.tituloNivel${i}`).value;
+        const inputPorcentagem = document.querySelector(`.porcentagemAcerto${i}`).value;
+        const inputImagemNivel = document.querySelector(`.imagemNivel${i}`).value;
+        const inputDescricaoNivel = document.querySelector(`.descricaoNivel${i}`).value;
+
+        const erroTituloNivel = document.querySelector(`.erroTituloNivel${i}`);
+        const erroPorcentagem = document.querySelector(`.erroPorcentagemAcerto${i}`);
+        const erroImagemNivel = document.querySelector(`.erroImagemNivel${i}`);
+        const erroDescricaoNivel = document.querySelector(`.erroDescricao${i}`);
+
+        erroTituloNivel.innerHTML = "";
+        erroPorcentagem.innerHTML = "";
+        erroImagemNivel.innerHTML = "";
+        erroDescricaoNivel.innerHTML = "";
+
+        if(inputTituloNivel.length < 10){
+            erroTituloNivel.innerHTML = "O título do nível deve ter 10 caracteres no mínimo"
+        }
+        if(inputPorcentagem > 100 || inputPorcentagem < 0){
+            erroPorcentagem.innerHTML = "Escolha um valor de 0 a 100"
+        }
+        if(!validarURL(inputImagemNivel)){
+            erroImagemNivel.innerHTML = "Por favor, digite uma URL válida"
+        }
+        if(inputDescricaoNivel.length < 30){
+            erroDescricaoNivel.innerHTML = "A descrição deve ter 30 caracteres no mínimo"
+        }
+        else{
+            validacaoNivel.push(inputPorcentagem);
+
+            const niveis = [{
+                title: inputTituloNivel,
+                image: inputImagemNivel,
+                text: inputDescricaoNivel,
+                minValue: inputPorcentagem
+            }]
+
+            quizz.levels.push(niveis);
+        }
+        i++
+    }
+}
+
+function avancarEtapa3 (){
+    verificarEtapa3();
+    if(validacaoNivel.length === qtdniveis){
+        for (i=0; i < validacaoNivel.length; i++){
+            if(validacaoNivel[i] === 0){
+                finalizarQuizz ();
+            }
+        }
+    } else {
+        alert("Pelo menos uma das porcentagens de acerto mínimo deve possuir o 0");
+    }
+}
+
+function finalizarQuizz (){
+
+    const corpo = document.querySelector(".paginaCrieQuizz");
+    corpo.querySelector(".instrucao").innerHTML = `<span>Seu Quizz está pronto!/span>`;
+
+    const conteiner = document.querySelector(".conteiner");
+    conteiner.innerHTML = "";
+
+    //Aqui insere o quizz criado, da para acessar as informaçoes a partir da variavel Quizz, criada no começo dessa bagunça
+
+
+    //Embaixo nomeei uma funcão que é para acessar o Quizz criado, porem altere a vontade, 
+    //Depois fiz um buttom que recarrega a pagina, falta fazer a funçao funcionar kk
+   // conteiner.innerHTML += `
+    //<button class="primeiraEtapa" onclick="AcessarSeuQuizz()">
+        //<span>Acessar Quizz</span>
+    //</button>
+    //<button class="voltarHome" onclick="reload()">
+        //<span>Voltar pra Home</span>
+    //</button>
+    //`;
+}

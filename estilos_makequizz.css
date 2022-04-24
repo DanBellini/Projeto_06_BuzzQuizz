@@ -151,7 +151,20 @@ input{
 
     color: #EC362D;
 }
+.criar-nivel{
+    margin-bottom: 24px;
+}
 
+.criar-nivel > div {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #EC362D;
+}
+.descricao{
+    height: 177px;
+}
 
 
 
