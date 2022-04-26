@@ -43,6 +43,9 @@ function renderizarListagemQuizz() {
 				if (quizzsalvos[j] === identificador) {
 
 					meuQuizz = true
+					
+					document.querySelector(".pagina-inicial section:nth-child(2)").style.display = "block"
+					document.querySelector(".lista-vazia").style.display = "none"
 					break
 				}
 			}
@@ -74,7 +77,6 @@ function renderizarListagemQuizz() {
 				<div class="gradiente"></div>
 				<h3>${titulo}</h3>
 			</div>`;
-
 		}
     }
 }
