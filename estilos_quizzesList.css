@@ -5,7 +5,6 @@
 /* PÁGINA INICIAL */
 
 .pagina-inicial {
-    /* display: none; */
     width: 1050px;
 
     margin: 0 auto;
@@ -56,6 +55,8 @@
     cursor: pointer;
 }
 
+
+
 .quizzes-container {
     margin-top: 50px;
 }
@@ -84,6 +85,7 @@
 
 .pagina-inicial section:nth-child(2) {
     display: none;
+    margin-top: 50px;
 }
 
 .quizzes {
@@ -113,7 +115,7 @@
     font-weight: 400;
     font-size: 19px;
     line-height: 22px;
-    word-break: break-all;
+    word-break: break-word;
     color: #ffffff;
 }
 
@@ -147,6 +149,10 @@ img {
     position: relative;
 
 }
+.quizzes-container.teste {
+    margin-top: 200px;
+}
+
 
 .cabecalho-do-quizz img {
     width: 100%;
@@ -195,7 +201,6 @@ img {
     align-items: center;
 
     width: 688px;
-    height: 138px;
 
     padding: 32px;
 
@@ -219,10 +224,8 @@ img {
     font-weight: 700;
     font-size: 20px;
     line-height: 23px;
-    word-break: break-all;
+    word-break: break-word;
     color: #000000;
-    word-break: break-all;
-
     margin-top: 8px;
 }
 
@@ -276,7 +279,7 @@ img {
     font-weight: 700;
     font-size: 19px;
     line-height: 25px;
-    word-break: break-all;
+    word-break: break-word;
     color: #484848;
 }
 
@@ -356,7 +359,7 @@ img {
     font-weight: 400;
     font-size: 23px;
     line-height: 27px;
-    word-break: break-all;
+    word-break: break-word;
     color: #ffffff;
 }
 
@@ -389,7 +392,7 @@ img {
 
     .titulo-do-quizz {
         width: 310px;
-    
+        
         font-size: 19px;
         line-height: 22px;
     }

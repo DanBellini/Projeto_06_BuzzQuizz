@@ -8,8 +8,16 @@ const quizz ={
 let qtdquestoes = 0;
 let qtdniveis = 0;
 let variavelinutil = 0;
+let quizzsalvos
 
-let quizzsalvos = JSON.parse(localStorage.getItem("id"));
+function buscandoquizzsalvos() {
+    quizzsalvos = localStorage.getItem("id");
+    if (quizzsalvos === null) {
+        quizzsalvos = []
+    } else {
+        quizzsalvos = JSON.parse(localStorage.getItem("id"))     
+    }
+}
 
 function validarURL(urlImagem){
     let verificarhttps = "";
