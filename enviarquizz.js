@@ -350,7 +350,7 @@ function finalizarQuizz (resposta){
     tituloDoQuizz = resposta.data.title;
     imagemDoQuizz = resposta.data.image;
     iddoQuizz = resposta.data.id;
-    
+
     quizzsalvos.push(iddoQuizz);
 
     let quizzSerializado = JSON.stringify(quizzsalvos)
