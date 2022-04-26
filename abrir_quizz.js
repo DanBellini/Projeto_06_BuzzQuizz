@@ -36,31 +36,34 @@ function renderizarListagemQuizz() {
 
 		if (quizzsalvos.length !== 0) {
 
+			let meuQuizz = false
+
 			for (let j = 0; j < quizzsalvos.length; j++) {
 
 				if (quizzsalvos[j] === identificador) {
 
-					if (document.querySelector(".pagina-inicial section:nth-child(2)").style.display === "none") {
-						document.querySelector(".pagina-inicial section:nth-child(2)").style.display = "block"
-						document.querySelector(".lista-vazia").style.display = "none"   
-					}
-
-					meusQuizzes.innerHTML += `
-					<div id="${identificador}" class="quizz" onclick="abrirQuizz(this)">
-						<img src=${imagem} alt="">
-						<div class="gradiente"></div>
-						<h3>${titulo}</h3>
-					</div>`;
-	
-				} else {
-	
-					todosQuizzes.innerHTML += `
-					<div id="${identificador}" class="quizz" onclick="abrirQuizz(this)">
-						<img src=${imagem} alt="">
-						<div class="gradiente"></div>
-						<h3>${titulo}</h3>
-					</div>`;
+					meuQuizz = true
+					break
 				}
+			}
+
+			if (meuQuizz) {
+
+				meusQuizzes.innerHTML += `
+				<div id="${identificador}" class="quizz" onclick="abrirQuizz(this)">
+					<img src=${imagem} alt="">
+					<div class="gradiente"></div>
+					<h3>${titulo}</h3>
+				</div>`;
+
+			} else {
+
+				todosQuizzes.innerHTML += `
+				<div id="${identificador}" class="quizz" onclick="abrirQuizz(this)">
+					<img src=${imagem} alt="">
+					<div class="gradiente"></div>
+					<h3>${titulo}</h3>
+				</div>`;
 			}
 
 		} else {

@@ -15,7 +15,9 @@ function buscandoquizzsalvos() {
     if (quizzsalvos === null) {
         quizzsalvos = []
     } else {
-        quizzsalvos = JSON.parse(localStorage.getItem("id"))     
+        quizzsalvos = JSON.parse(localStorage.getItem("id"))
+        document.querySelector(".pagina-inicial section:nth-child(2)").style.display = "block"
+		document.querySelector(".lista-vazia").style.display = "none"
     }
 }
 
