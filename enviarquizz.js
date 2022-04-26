@@ -4,10 +4,11 @@ const quizz ={
     questions: [],
     levels: []
 }
-let quizzid = 0;
+
 let qtdquestoes = 0;
 let qtdniveis = 0;
 
+let quizzsalvos = JSON.parse(localStorage.getItem("id"));
 
 function validarURL(urlImagem){
     let verificarhttps = "";
@@ -343,8 +344,10 @@ function tratarErro (erro){
 
 function finalizarQuizz (resposta){
 
-    quizzid = resposta.data.id;
-    quizzSerializado = JSON.stringify(quizzid)
+    iddoQuizz = resposta.data.id;
+    quizzsalvos.push(iddoQuizz);
+
+    let quizzSerializado = JSON.stringify(quizzsalvos)
 
     localStorage.setItem("id", quizzSerializado);
     
