@@ -323,7 +323,7 @@ function avancarEtapa3 (){
     while(i < validacaoNivel.length){
         if (validacaoNivel[i] === 0){
             validarporcentagen += 1
-
+            carregarPagina()
             const requisicao = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizz)
             requisicao.then(finalizarQuizz)
             requisicao.catch(tratarErro)
@@ -342,14 +342,32 @@ function tratarErro (erro){
 }
 
 function finalizarQuizz (resposta){
+    
+    carregarPagina()
+    solicitarQuizzes()
 
     quizzid = resposta.data.id;
+    quizzTitle = resposta.data.title;
+    quizzImage = resposta.data.image;
+
     quizzSerializado = JSON.stringify(quizzid)
 
     localStorage.setItem("id", quizzSerializado);
     
     const corpo = document.querySelector(".paginaCrieQuizz");
-    corpo.querySelector(".instrucao").innerHTML = `<span>Seu Quizz está pronto!</span>`;
+    corpo.querySelector(".instrucao").innerHTML = `
+    <div class="sucesso-criacao">
+        <h2>Seu Quizz está pronto!</h2>
+        <div class="quizz-sucesso">
+            <img src=${quizzImage} alt="">
+            <div class="gradiente"></div>
+            <h3>${quizzTitle}</h3>
+        </div>
+        <div class="botoes-container">
+            <div id="${quizzid}" class="bnt-reiniciar-quizz" onclick="abrirQuizz(this)">Acessar Quizz</div>
+            <div class="btn-voltar-home" onclick="voltarHome()">Voltar para home</div>
+        </div>
+    </div>`;
 
     const conteiner = document.querySelector(".conteiner");
     conteiner.innerHTML = "";

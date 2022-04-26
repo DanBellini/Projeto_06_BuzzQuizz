@@ -40,15 +40,23 @@ function renderizarListagemQuizz() {
 }
 
 function abrirQuizz(quizz) {
+	
+	carregarPagina()
+
     const paginaInicial = document.querySelector(".pagina-inicial")
     paginaInicial.style.display = "none"
 
-	quizzSelecionado = quizzes.find(arr => arr.id === Number(quizz.id))
+	const paginaCriarQuizz = document.querySelector(".paginaCrieQuizz")
+    paginaCriarQuizz.style.display = "none"
 
+	quizzSelecionado = quizzes.find(arr => arr.id === Number(quizz.id))
+	console.log(quizzSelecionado)
 	renderizarQuizz()
 
 	const paginaQuizz = document.querySelector(".pagina-do-quizz")
 	paginaQuizz.style.display = "unset"
+
+	carregarPagina()
 }
 
 function renderizarQuizz() {
