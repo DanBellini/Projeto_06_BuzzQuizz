@@ -7,6 +7,7 @@ const quizz ={
 
 let qtdquestoes = 0;
 let qtdniveis = 0;
+let variavelinutil = 0;
 
 let quizzsalvos = JSON.parse(localStorage.getItem("id"));
 
@@ -374,18 +375,4 @@ function finalizarQuizz (resposta){
 
     const conteiner = document.querySelector(".conteiner");
     conteiner.innerHTML = "";
-
-    //Aqui insere o quizz criado, da para acessar as informaçoes a partir da variavel Quizz, criada no começo dessa bagunça
-
-
-    //Embaixo nomeei uma funcão que é para acessar o Quizz criado, porem altere a vontade, 
-    //Depois fiz um buttom que recarrega a pagina, falta fazer a funçao funcionar kk
-   // conteiner.innerHTML += `
-    //<button class="primeiraEtapa" onclick="AcessarSeuQuizz()">
-        //<span>Acessar Quizz</span>
-    //</button>
-    //<button class="voltarHome" onclick="reload()">
-        //<span>Voltar pra Home</span>
-    //</button>
-    //`;
 }
