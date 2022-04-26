@@ -4,9 +4,10 @@ const quizz ={
     questions: [],
     levels: []
 }
-
+let quizzid = 0;
 let qtdquestoes = 0;
 let qtdniveis = 0;
+
 
 function validarURL(urlImagem){
     let verificarhttps = "";
@@ -322,6 +323,7 @@ function avancarEtapa3 (){
     while(i < validacaoNivel.length){
         if (validacaoNivel[i] === 0){
             validarporcentagen += 1
+
             const requisicao = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizz)
             requisicao.then(finalizarQuizz)
             requisicao.catch(tratarErro)
@@ -339,8 +341,13 @@ function tratarErro (erro){
     alert(`Não foi possivel finalizar o seu Quizz :( \n Erro:${erro.response.status}`)
 }
 
-function finalizarQuizz (){
+function finalizarQuizz (resposta){
 
+    quizzid = resposta.data.id;
+    quizzSerializado = JSON.stringify(quizzid)
+
+    localStorage.setItem("id", quizzSerializado);
+    
     const corpo = document.querySelector(".paginaCrieQuizz");
     corpo.querySelector(".instrucao").innerHTML = `<span>Seu Quizz está pronto!</span>`;
 
