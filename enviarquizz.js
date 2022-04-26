@@ -8,8 +8,17 @@ const quizz ={
 let qtdquestoes = 0;
 let qtdniveis = 0;
 let variavelinutil = 0;
+let quizzsalvos
 
-let quizzsalvos = JSON.parse(localStorage.getItem("id"));
+function buscandoquizzsalvos() {
+    quizzsalvos = localStorage.getItem("id");
+    if (quizzsalvos === null) {
+        quizzsalvos = []
+    } else {
+        quizzsalvos = JSON.parse(localStorage.getItem("id"))
+    }
+}
+
 
 function validarURL(urlImagem){
     let verificarhttps = "";
@@ -75,37 +84,28 @@ function renderizarEtapa2 (){
         conteiner.innerHTML += `
         <div class="criar-pergunta">
                 <p>Pergunta ${i} </p>
-
                 <input class="suaPergunta${i}" type="text" placeholder="Texto da pergunta">
                 <div class="erroPergunta${i}"></div>
-
                 <input class="suaCor${i}" type="text" placeholder="Cor de fundo da pergunta">
                 <div class="erroCor${i}"></div>
-
                 <p>Resposta correta</p>
-
                 <input class="respostaCorreta${i}" type="text" placeholder="Resposta Correta">
                 <div class="erroResposta${i}"></div>
     
                 <input class="respostaImagemCorreta${i}" type="text" placeholder="URL da Imagem">
                 <div class="erroImagemCorreta${i}"></div>
-
                 <p> Respostas Incorretas </p>
-
                 <input class="respostaIncorreta${i}" type="text" placeholder="Resposta incorreta 1">
                 <div class="erroRespostaIncorreta${i}"></div>
     
                 <input class="respostaImagemIncorreta${i}" type="text" placeholder="URL da imagem 1">
                 <div class="erroImagemIncorreta${i}"></div>
-
                 <div class="espaco"></div>
-
                 <input class="respostaIncorreta${i}" type="text" placeholder="Resposta incorreta 2">
                 <div class="erroRespostaIncorreta${i}"></div>
     
                 <input class="respostaImagemIncorreta${i}" type="text" placeholder="URL da imagem 2">
                 <div class="erroImagemIncorreta${i}"></div>
-
                 <div class="espaco"></div>
     
                 <input class="respostaIncorreta${i}" type="text" placeholder="Resposta incorreta 3">
@@ -114,7 +114,6 @@ function renderizarEtapa2 (){
                 <input class="respostaImagemIncorreta${i}" type="text" placeholder="URL da imagem 3">
                 <div class="erroImagemIncorreta${i}"></div>
             </div>
-
         `
     }
 
@@ -245,16 +244,12 @@ function renderizarEtapa3(){
         conteiner.innerHTML += `
         <div class="criar-nivel">
             <p>Nível ${i} </p>
-
             <input class="tituloNivel${i}" type="text" placeholder="Texto do Nível">
             <div class="erroTituloNivel${i}"></div>
-
             <input class="porcentagemAcerto${i}" type="number" placeholder="% de acerto mínima">
             <div class="erroPorcentagemAcerto${i}"></div>
-
             <input class="imagemNivel${i}" type="text" placeholder="URL da imagem do nível">
             <div class="erroImagemNivel${i}"></div>
-
             <input class="descricaoNivel${i} descricao" placeholder="Descrição do nível">
             <div class="erroDescricao${i}"></div>
         `
@@ -351,7 +346,7 @@ function finalizarQuizz (resposta){
     tituloDoQuizz = resposta.data.title;
     imagemDoQuizz = resposta.data.image;
     iddoQuizz = resposta.data.id;
-    
+
     quizzsalvos.push(iddoQuizz);
 
     let quizzSerializado = JSON.stringify(quizzsalvos)
