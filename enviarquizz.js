@@ -4,10 +4,11 @@ const quizz ={
     questions: [],
     levels: []
 }
-let quizzid = 0;
+
 let qtdquestoes = 0;
 let qtdniveis = 0;
 
+let quizzsalvos = JSON.parse(localStorage.getItem("id"));
 
 function validarURL(urlImagem){
     let verificarhttps = "";
@@ -346,11 +347,13 @@ function finalizarQuizz (resposta){
     carregarPagina()
     solicitarQuizzes()
 
-    quizzid = resposta.data.id;
-    quizzTitle = resposta.data.title;
-    quizzImage = resposta.data.image;
+    tituloDoQuizz = resposta.data.title;
+    imagemDoQuizz = resposta.data.image;
+    iddoQuizz = resposta.data.id;
+    
+    quizzsalvos.push(iddoQuizz);
 
-    quizzSerializado = JSON.stringify(quizzid)
+    let quizzSerializado = JSON.stringify(quizzsalvos)
 
     localStorage.setItem("id", quizzSerializado);
     
@@ -359,12 +362,12 @@ function finalizarQuizz (resposta){
     <div class="sucesso-criacao">
         <h2>Seu Quizz está pronto!</h2>
         <div class="quizz-sucesso">
-            <img src=${quizzImage} alt="">
+            <img src=${imagemDoQuizz} alt="">
             <div class="gradiente"></div>
-            <h3>${quizzTitle}</h3>
+            <h3>${tituloDoQuizz}</h3>
         </div>
         <div class="botoes-container">
-            <div id="${quizzid}" class="bnt-reiniciar-quizz" onclick="abrirQuizz(this)">Acessar Quizz</div>
+            <div id="${iddoQuizz}" class="bnt-reiniciar-quizz" onclick="abrirQuizz(this)">Acessar Quizz</div>
             <div class="btn-voltar-home" onclick="voltarHome()">Voltar para home</div>
         </div>
     </div>`;
